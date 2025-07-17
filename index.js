@@ -61,7 +61,7 @@ client.on('message', async msg => {
 
   if (triggers.includes(text)) {
     console.log(`📩 Trigger received from ${sender}: ${msg.body}`);
-    msg.reply('👋 Hey! I am Lucky\'s bot. How can I help you?\n You can drop your message Boss will get back to you soon');
+    msg.reply('👋 Hey! it\'s a bot I am not here right now.\n But you can drop your message I will get back to you soon');
   }
 });
 
