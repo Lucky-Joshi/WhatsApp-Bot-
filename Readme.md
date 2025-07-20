@@ -1,61 +1,145 @@
-# Project Documentation
+# 🤖 Instagram Auto-Reply Bot
 
-## Overview
+An auto-reply bot for **Instagram DMs**, built using **Node.js** and the **Instagram Graph API**. Designed for **business/creator accounts** connected to a **Facebook Page**.
 
-This project is a software application designed to [briefly describe the main purpose or functionality of the project, e.g., "manage user tasks and schedules efficiently"]. It leverages modern programming practices and frameworks to ensure scalability, maintainability, and ease of use.
+---
 
-## Features
+## 🚀 Features
 
-- [Feature 1: e.g., User authentication and authorization]
-- [Feature 2: e.g., Task creation, editing, and deletion]
-- [Feature 3: e.g., Real-time notifications]
-- [Feature 4: e.g., Responsive user interface]
-- [Add more features as appropriate]
+* Auto-reply to direct messages on Instagram
+* Works only for **business/creator** Instagram accounts
+* Lightweight Express server
+* Facebook Webhook verification
+* Written in **Node.js**
 
-## Technologies Used
+---
 
-- [Programming Language(s): e.g., Python, JavaScript]
-- [Frameworks/Libraries: e.g., Django, React]
-- [Database: e.g., PostgreSQL, MongoDB]
-- [Other Tools: e.g., Docker, Redis]
+## ⚠️ Limitations
 
-## Getting Started
+| Feature                    | Supported?                               |
+| -------------------------- | ---------------------------------------- |
+| Personal IG accounts       | ❌ No                                     |
+| Business/Creator accounts  | ✅ Yes                                    |
+| Group DMs                  | ❌ No                                     |
+| Auto-reply without message | ❌ No (only replies to incoming messages) |
 
-1. **Clone the repository:**
-    ```
-    git clone https://github.com/yourusername/yourproject.git
-    ```
-2. **Install dependencies:**
-    ```
-    [Insert installation command, e.g., npm install or pip install -r requirements.txt]
-    ```
-3. **Configure environment variables:**
-    - Copy `.env.example` to `.env` and update the values as needed.
+---
 
-4. **Run the application:**
-    ```
-    [Insert run command, e.g., npm start or python manage.py runserver]
-    ```
+## 🧰 Requirements
 
-## Usage
+* Instagram **Business/Creator** account
+* Facebook **Page** linked to Instagram
+* [Facebook Developer App](https://developers.facebook.com/)
+* Node.js (v14+)
+* Verified webhook (via `ngrok`, Render, etc.)
+* Page Access Token with:
 
-- [Describe basic usage, e.g., how to create a new task, how to log in, etc.]
-- [Include API endpoints or UI instructions as needed.]
+  * `instagram_basic`
+  * `instagram_manage_messages`
+  * `pages_messaging`
 
-## Contributing
+---
 
-Contributions are welcome! Please follow these steps:
+## 🔧 Installation
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature`).
-3. Commit your changes (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature/your-feature`).
-5. Create a new Pull Request.
+```bash
+git clone https://github.com/yourusername/instagram-auto-reply-bot.git
+cd instagram-auto-reply-bot
+npm install
+```
 
-## License
+---
 
-This project is licensed under the [Your License Name, e.g., MIT License]. See the [LICENSE](LICENSE) file for details.
+## 🏦 Environment Setup
 
-## Contact
+Create a `.env` file:
 
-For questions or support, please contact [your.email@example.com] or open an issue on GitHub.
+```env
+VERIFY_TOKEN=your_custom_verify_token
+PAGE_ACCESS_TOKEN=your_facebook_page_access_token
+```
+
+---
+
+## ▶️ Run the Server
+
+```bash
+node index.js
+```
+
+You’ll see:
+
+```bash
+📡 Server listening on port 3000
+```
+
+---
+
+## 🌐 Webhook Setup (using `ngrok`)
+
+Start tunnel:
+
+```bash
+ngrok http 3000
+```
+
+Copy the HTTPS URL and set it as your **Webhook Callback URL** in your Facebook App:
+
+```
+https://your-ngrok-url/webhook
+```
+
+Verify Token = `VERIFY_TOKEN` you used in `.env`
+
+---
+
+## 📬 Webhook Callback Events
+
+Enable:
+
+* `messages`
+* `messaging_postbacks`
+* `message_reactions`
+
+---
+
+## 💬 Customize Your Auto-Reply
+
+Inside `index.js`:
+
+```js
+message: { text: "👋 Hi! Thanks for messaging us. We'll get back to you shortly!" }
+```
+
+Change the reply to suit your needs.
+
+---
+
+## 🧪 Testing
+
+1. Go to your Instagram business account
+2. DM from another account
+3. You’ll receive an auto-reply
+
+---
+
+## ☁️ Free Hosting Options
+
+| Platform      | Webhook Support     | Notes                                     |
+| ------------- | ------------------- | ----------------------------------------- |
+| Render        | ✅ (web server only) | Use `web service`, not background workers |
+| Glitch        | ✅                   | Easy deploy, free forever                 |
+| Railway       | ✅                   | Free tier with hours                      |
+| Local + ngrok | ✅                   | For testing                               |
+
+---
+
+## 📄 License
+
+MIT
+
+---
+
+## 🤝 Contribute
+
+PRs welcome. Open issues or suggest features!
